@@ -1,3 +1,37 @@
-img {
-  size: 15px;
+body {
+  font-family: sans-serif;
+}
+
+.weather-app-view {
+  max-width: 600px;
+  margin: 30px auto;
+  border: 2px solid #dadde1;
+  padding: 25px;
+  border-radius: 5px;
+}
+
+.module-detail-left {
+  min-width: 140px;
+  padding-right: 10px;
+}
+
+h1 {
+  color: #333;
+  font-size: 20px;
+  font-weight: 550;
+  line-height: 30px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
 }
