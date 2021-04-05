@@ -10,7 +10,7 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
-    />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="src/styles.css" />
     <title>Vanilla Weather App</title>
   </head>
@@ -19,10 +19,10 @@
       <div class="weather-app-wrap">
         <div class="weather-app">
           <div class="overview">
-            <h1>Melbourne, VIC</h1>
+            <h1 id="city"></h1>
             <ul>
-              <li>Monday 07:09</li>
-              <li>Clear</li>
+              <li id="date"></li>
+              <li id="skies"></li>
             </ul>
           </div>
           <div class="row">
@@ -34,7 +34,7 @@
                   class="weather-icon float-left"
                 />
                 <div class="float-left">
-                  <strong>21</strong
+                  <strong id="temp"></strong
                   ><span class="units"
                     ><a href="#" id="celsius">°C</a> |
                     <a href="#" id="fahrenheit">°F</a></span
