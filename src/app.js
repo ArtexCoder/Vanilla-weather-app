@@ -22,6 +22,7 @@ function formatDate(timestamp) {
 }
 
 function displayTemp(response) {
+  console.log(response);
   let tempElement = document.querySelector("#temp");
   let cityElement = document.querySelector("#city");
   let skiesElement = document.querySelector("#skies");
@@ -29,7 +30,10 @@ function displayTemp(response) {
   let windElement = document.querySelector("#wind");
   let dateElement = document.querySelector("#date");
   let iconElement = document.querySelector("#icon");
-  tempElement.innerHTML = Math.round(response.data.main.temp);
+
+  celsiusTemp = response.data.main.temp;
+
+  tempElement.innerHTML = Math.round(celsiusTemp);
   cityElement.innerHTML = response.data.name;
   skiesElement.innerHTML = response.data.weather[0].description;
   humidityElement.innerHTML = response.data.main.humidity;
@@ -54,5 +58,29 @@ function uponSubmit(event) {
   search(cityInputElement.value);
 }
 
+function changeToFahrenheit(event) {
+  event.preventDefault();
+  let toFahrenheit = (celsiusTemp * 9) / 5 + 32;
+  let tempElement = document.querySelector("#temp");
+  tempElement.innerHTML = Math.round(toFahrenheit);
+}
+
+function changeToCelsius(event) {
+  event.preventDefault();
+  let tempElement = document.querySelector("#temp");
+  tempElement.innerHTML = Math.round(celsiusTemp);
+}
+
+//global variable to keep track of Celsius variable
+let celsiusTemp = null;
+
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", uponSubmit);
+
+let fahrenheit = document.querySelector("#fahrenheit");
+fahrenheit.addEventListener("click", changeToFahrenheit);
+
+let celsius = document.querySelector("#celsius");
+celsius.addEventListener("click", changeToCelsius);
+
+search("Melbourne");
