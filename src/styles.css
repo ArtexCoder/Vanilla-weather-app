@@ -57,3 +57,22 @@ li:first-letter {
   position: relative;
   top: -24px;
 }
+
+.weather-forecast {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.forecast-day {
+  font-size: 16px;
+  opacity: 0.5;
+  color: #000;
+}
+
+.forecast-temp {
+  font-size: 13px;
+}
+
+.forecast-temp-min {
+  opacity: 0.5;
+}
