@@ -1,4 +1,7 @@
 body {
+  background-image: url(grampians.jpeg);
+  background-repeat: no-repeat;
+  background-position: center;
   font-family: Arial, Helvetica, sans-serif;
 }
 
