@@ -21,46 +21,58 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 
-function displayForecast() {
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  return days[day];
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
+
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row">`;
-  forecastHTML =
-    forecastHTML +
-    `
-     <div class="col-2">
-       <div class="forecast-day">Mon</div>
-       <img src="http://openweathermap.org/img/wn/11n@2x.png" 
-       alt="thunderstorm" 
-       width="42" 
-       />
-       <div class="forecast-temp">
-         <span class="forecast-temp-max"> 19° </span>
-         <span class="forecast-temp-min"> 12° </span>
-       </div>
-     </div>
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
+      <div class="col-2">
+        <div class="forecast-day">${formatDay(forecastDay.dt)}</div>
+        <img src="http://openweathermap.org/img/wn/${
+          forecastDay.weather[0].icon
+        }@2x.png" 
+        alt="thunderstorm" 
+        width="42" 
+        />
+        <div class="forecast-temp">
+          <span class="forecast-temp-max"> ${Math.round(
+            forecastDay.temp.max
+          )}° </span>
+          <span class="forecast-temp-min"> ${Math.round(
+            forecastDay.temp.min
+          )}° </span>
+        </div>
+      </div>
   `;
-  forecastHTML =
-    forecastHTML +
-    `
-     <div class="col-2">
-       <div class="forecast-day">Mon</div>
-       <img src="http://openweathermap.org/img/wn/11n@2x.png" 
-       alt="thunderstorm" 
-       width="42" 
-       />
-       <div class="forecast-temp">
-         <span class="forecast-temp-max"> 19° </span>
-         <span class="forecast-temp-min"> 12° </span>
-       </div>
-     </div>
-  `;
+    }
+  });
+
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
 
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "7f1abb7499ee1372068a93b1153535be";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function displayTemp(response) {
-  console.log(response);
   let tempElement = document.querySelector("#temp");
   let cityElement = document.querySelector("#city");
   let skiesElement = document.querySelector("#skies");
@@ -82,6 +94,8 @@ function displayTemp(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
+
+  getForecast(response.data.coord);
 }
 
 function search(city) {
@@ -121,4 +135,4 @@ fahrenheit.addEventListener("click", changeToFahrenheit);
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", changeToCelsius);
 
-search("Melbourne");
+search("Papeete");
